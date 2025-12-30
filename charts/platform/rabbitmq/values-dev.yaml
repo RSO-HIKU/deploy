@@ -1,0 +1,27 @@
+replicaCount: 1
+
+image:
+  repository: rabbitmq
+  tag: "3-management"
+  pullPolicy: IfNotPresent
+
+auth:
+  username: hikuuser
+  password: hikupassword
+
+service:
+  type: ClusterIP
+  amqpPort: 5672
+  managementPort: 15672
+
+managementNodePort:
+  enabled: true
+  port: 30672
+
+resources:
+  limits:
+    cpu: 250m
+    memory: 1024Mi
+  requests:
+    cpu: 100m
+    memory: 512Mi
