@@ -1,0 +1,29 @@
+replicaCount: 1
+
+postgres:
+  enabled: false
+
+azure:
+  enabled: true
+  tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
+  keyVaultName: "kv-hiku-test-weu"    
+  kvCsiClientId: ""        # terraform output aks_kv_csi_client_id
+  # Database settings
+  database: hikudb
+  port: "5432"
+  sslmode: require
+
+service:
+  type: ClusterIP
+  port: 5432
+
+# pgAdmin DISABLED for production (security)
+pgAdmin:
+  enabled: false
+
+flyway:
+  image:
+    repository: acrhikuprodweu.azurecr.io/database-migrator
+    tag: latest
+    pullPolicy: Always
+  table: db_flyway_history
