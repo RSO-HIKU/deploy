@@ -1,7 +1,7 @@
 replicaCount: 1
 
 image:
-  repository: acrhikuprodweu.azurecr.io/activity-service
+  repository: acrhikuprodplc.azurecr.io/activity-service
   tag: latest
   pullPolicy: Always
 
@@ -12,7 +12,7 @@ database:
 azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
-  keyVaultName: "kv-hiku-prod-weu"
+  keyVaultName: "kv-hiku-prod-plc"
   kvCsiClientId: "" # From terraform output aks_kv_csi_client_id
   database: hikudb
   port: "5432"
@@ -26,7 +26,7 @@ service:
 
 flyway:
   image:
-    repository: acrhikuprodweu.azurecr.io/activity-service-migrator
+    repository: acrhikuprodplc.azurecr.io/activity-service-migrator
     tag: latest
     pullPolicy: Always
 
