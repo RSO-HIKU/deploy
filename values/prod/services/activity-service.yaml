@@ -1,0 +1,39 @@
+replicaCount: 1
+
+image:
+  repository: acrhikuprodplc.azurecr.io/activity-service
+  tag: latest
+  pullPolicy: Always
+
+database:
+  enabled: false
+  schema: activity_service
+
+azure:
+  enabled: true
+  tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
+  keyVaultName: "kv-hiku-prod-plc"
+  kvCsiClientId: "" # From terraform output aks_kv_csi_client_id
+  database: hikudb
+  port: "5432"
+  sslmode: require
+
+service:
+  clusterIP:
+    port: 8085
+  nodePort:
+    enabled: false
+
+flyway:
+  image:
+    repository: acrhikuprodplc.azurecr.io/activity-service-migrator
+    tag: latest
+    pullPolicy: Always
+
+resources:
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+  requests:
+    cpu: "250m"
+    memory: "256Mi"

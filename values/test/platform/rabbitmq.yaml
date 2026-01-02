@@ -1,0 +1,29 @@
+replicaCount: 1
+
+image:
+  repository: rabbitmq
+  tag: "3-management-alpine"
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  amqpPort: 5672
+  managementPort: 15672
+
+nodePort:
+  enabled: false
+
+resources:
+  requests:
+    cpu: "100m"
+    memory: "256Mi"
+  limits:
+    cpu: "500m"
+    memory: "512Mi"
+
+# Credentials from Key Vault
+azure:
+  enabled: true
+  keyVaultName: "kv-hiku-test-plc"
+  tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
+  kvCsiClientId: ""     # From Terraform output

@@ -1,0 +1,32 @@
+traefik:
+  service:
+    type: LoadBalancer
+    annotations:
+      service.beta.kubernetes.io/azure-pip-name: "pip-traefik-hiku-prod-plc"
+      service.beta.kubernetes.io/azure-load-balancer-resource-group: "MC_rg-hiku-prod-plc_aks-hiku-prod-plc_polandcentral"
+    spec:
+      loadBalancerIP: ""  # Set from Terraform output: traefik_public_ip
+
+  additionalArguments:
+    - "--api.insecure=false"
+    - "--log.level=WARN"
+
+  ingressRoute:
+    dashboard:
+      enabled: false
+
+  ports:
+    web:
+      port: 80
+    websecure:
+      port: 443
+
+  resources:
+    requests:
+      cpu: "200m"
+      memory: "256Mi"
+    limits:
+      cpu: "500m"
+      memory: "512Mi"
+
+  replicas: 1
