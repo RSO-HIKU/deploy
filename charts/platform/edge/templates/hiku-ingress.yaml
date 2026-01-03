@@ -5,6 +5,7 @@ metadata:
   namespace: dev
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
+    traefik.ingress.kubernetes.io/router.middlewares: dev-cors@kubernetescrd
 spec:
   ingressClassName: traefik
   rules:
@@ -45,28 +46,28 @@ spec:
                 name: notification-service
                 port:
                   number: 8088
-          - path: /api/scoreboards
+          - path: /api/scoreboards-challenges
             pathType: Prefix
             backend:
               service:
                 name: scoreboards-challenges-service
                 port:
                   number: 8089
-          - path: /api/social
+          - path: /api/feed
             pathType: Prefix
             backend:
               service:
                 name: social-feed-service
                 port:
                   number: 8091
-          - path: /api/trails
+          - path: /api/trail-import
             pathType: Prefix
             backend:
               service:
                 name: trail-import-service
                 port:
                   number: 8084
-          - path: /api/peaks
+          - path: /api/peaks-hikes
             pathType: Prefix
             backend:
               service:
