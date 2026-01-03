@@ -7,13 +7,8 @@ metadata:
     traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
 spec:
   ingressClassName: traefik
-  tls:
-    - hosts:
-        - hiku.local
-      secretName: hiku-tls-secret
   rules:
-    - host: hiku.local
-      http:
+    - http:
         paths:
           - path: /api/users
             pathType: Prefix
