@@ -1,0 +1,126 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "keycloak.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "keycloak.labels" . | nindent 4 }}
+spec:
+  replicas: {{ .Values.replicaCount }}
+  selector:
+    matchLabels:
+      {{- include "keycloak.selectorLabels" . | nindent 6 }}
+  template:
+    metadata:
+      labels:
+        {{- include "keycloak.selectorLabels" . | nindent 8 }}
+    spec:
+      {{- if .Values.azure.enabled }}
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              # Match your convention: one SPC per release
+              secretProviderClass: {{ include "keycloak.fullname" . }}-azure-kv
+      {{- end }}
+      containers:
+        - name: {{ .Chart.Name }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
+
+          ports:
+            - name: http
+              containerPort: {{ .Values.service.clusterIP.port }}
+            - name: mgmt
+              containerPort: {{ .Values.service.managementPort }}
+
+          {{- if .Values.azure.enabled }}
+          volumeMounts:
+            - name: secrets-store
+              mountPath: /mnt/secrets-store
+              readOnly: true
+
+          command:
+            - sh
+            - -c
+            - |
+              set -euo pipefail
+
+              # Read secrets from CSI mounted files (Azure Key Vault)
+              KC_ADMIN_USER="$(cat /mnt/secrets-store/{{ .Values.azure.files.adminUser }})"
+              KC_ADMIN_PASS="$(cat /mnt/secrets-store/{{ .Values.azure.files.adminPassword }})"
+
+              KC_DB_HOST="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbHost }})"
+              KC_DB_NAME="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbName }})"
+              KC_DB_USER="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbUser }})"
+              KC_DB_PASS="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbPassword }})"
+
+              export KC_BOOTSTRAP_ADMIN_USERNAME="${KC_ADMIN_USER}"
+              export KC_BOOTSTRAP_ADMIN_PASSWORD="${KC_ADMIN_PASS}"
+
+              export KC_DB="postgres"
+              export KC_DB_USERNAME="${KC_DB_USER}"
+              export KC_DB_PASSWORD="${KC_DB_PASS}"
+              export KC_DB_URL="jdbc:postgresql://${KC_DB_HOST}:{{ .Values.azure.port }}/${KC_DB_NAME}?sslmode={{ .Values.azure.sslmode }}"
+
+              # Reverse proxy / hostname correctness behind Traefik
+              export KC_HTTP_ENABLED="{{ .Values.keycloak.httpEnabled }}"
+              export KC_PROXY_HEADERS="{{ .Values.keycloak.proxyHeaders }}"
+              export KC_HTTP_RELATIVE_PATH=/auth
+              export KC_HTTP_MANAGEMENT_RELATIVE_PATH="/"
+              export KC_HOSTNAME="{{ .Values.keycloak.hostnameUrl }}"
+
+              # Observability
+              export KC_HEALTH_ENABLED="{{ .Values.keycloak.healthEnabled }}"
+              export KC_METRICS_ENABLED="{{ .Values.keycloak.metricsEnabled }}"
+
+              # Start Keycloak
+              exec /opt/keycloak/bin/kc.sh start
+          {{- else if eq .Values.mode "dev" }}
+          # Dev mode: use embedded H2 database
+          args: ["start-dev"]
+          env:
+            - name: JAVA_OPTS_APPEND
+              value: "-Xms256m -Xmx512m -XX:MaxMetaspaceSize=256m"
+            - name: KC_BOOTSTRAP_ADMIN_USERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "keycloak.fullname" . }}-admin
+                  key: username
+            - name: KC_BOOTSTRAP_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: {{ include "keycloak.fullname" . }}-admin
+                  key: password
+            - name: KC_HTTP_ENABLED
+              value: {{ .Values.keycloak.httpEnabled | quote }}
+            - name: KC_HTTP_RELATIVE_PATH
+              value: /auth
+            - name: KC_HTTP_MANAGEMENT_RELATIVE_PATH
+              value: /
+            - name: KC_HEALTH_ENABLED
+              value: {{ .Values.keycloak.healthEnabled | quote }}
+            - name: KC_METRICS_ENABLED
+              value: {{ .Values.keycloak.metricsEnabled | quote }}
+          {{- end }}
+
+          readinessProbe:
+            httpGet:
+              path: /health/ready
+              port: {{ .Values.service.managementPort }}
+            initialDelaySeconds: 30
+            periodSeconds: 10
+
+          livenessProbe:
+            httpGet:
+              path: /health/live
+              port: {{ .Values.service.managementPort }}
+            initialDelaySeconds: 60
+            periodSeconds: 20
+
+          {{- with .Values.resources }}
+          resources:
+            {{- toYaml . | nindent 12 }}
+          {{- end }}
