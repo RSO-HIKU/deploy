@@ -1,0 +1,56 @@
+environment: test
+replicaCount: 1
+
+mode: prod
+
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "26.0.0"
+  pullPolicy: IfNotPresent
+
+service:
+  clusterIP:
+    port: 8080
+  managementPort: 9000
+
+azure:
+  enabled: true
+  port: 5432
+  sslmode: require
+
+  files:
+    dbHost: keycloak-db-host
+    dbName: keycloak-db-name
+    dbUser: keycloak-db-username
+    dbPassword: keycloak-db-password
+    adminUser: keycloak-admin-username
+    adminPassword: keycloak-admin-password
+
+  tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
+  keyVaultName: "kv-hiku-test-plc"
+  kvCsiClientId: "" # From terraform output aks_kv_csi_client_id
+
+# TEST/PROD: do not use Kubernetes Secrets for DB/admin
+database:
+  enabled: false
+
+keycloak:
+  hostnameUrl: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth"
+  proxyHeaders: "xforwarded"
+  httpEnabled: "true"
+  healthEnabled: "true"
+  metricsEnabled: "true"
+
+ingress:
+  enabled: true
+  className: traefik
+  host: traefik-hiku-test.polandcentral.cloudapp.azure.com
+  tlsSecretName: keycloak-tls
+  annotations:
+    traefik.ingress.kubernetes.io/router.entrypoints: websecure
+
+resources: {}
+
+jwtAuth:
+  issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
+  jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"

@@ -1,0 +1,53 @@
+replicaCount: 1
+
+image:
+  repository: quay.io/keycloak/keycloak
+  tag: "26.0.0"
+  pullPolicy: IfNotPresent
+
+# Dev mode: uses embedded H2 database (no PostgreSQL needed)
+mode: dev
+
+# Database configuration
+# In dev mode, Keycloak uses embedded H2 - no external DB required
+database:
+  enabled: false
+  vendor: h2
+
+service:
+  clusterIP:
+    port: 8080
+  managementPort: 9000
+
+nodePort:
+  enabled: true
+  port: 8080
+  nodePort: 30097
+
+# Ingress disabled in dev (use NodePort instead)
+ingress:
+  enabled: true
+  host: "keycloak.localhost"
+
+keycloak:
+  hostnameUrl: "http://keycloak.localhost/auth"
+  proxyHeaders: "xforwarded"
+  httpEnabled: "true"
+  healthEnabled: "true"
+  metricsEnabled: "true"
+
+azure:
+  enabled: false
+
+# Constrain JVM heap to prevent OOM while saving system memory
+extraEnv:
+  - name: JAVA_OPTS_APPEND
+    value: "-Xms256m -Xmx512m -XX:MaxMetaspaceSize=256m"
+
+resources:
+  requests:
+    cpu: 250m
+    memory: 768Mi
+  limits:
+    cpu: 500m
+    memory: 1Gi

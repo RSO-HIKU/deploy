@@ -1,0 +1,18 @@
+{{- if .Values.nodePort.enabled }}
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "keycloak.fullname" . }}-nodeport
+  namespace: {{ .Release.Namespace }}
+  labels:
+    {{- include "keycloak.labels" . | nindent 4 }}
+spec:
+  type: NodePort
+  selector:
+    {{- include "keycloak.selectorLabels" . | nindent 4 }}
+  ports:
+    - name: http
+      port: {{ .Values.nodePort.port }}
+      targetPort: http
+      nodePort: {{ .Values.nodePort.nodePort }}
+{{- end }}

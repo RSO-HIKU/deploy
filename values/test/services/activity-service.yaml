@@ -29,3 +29,7 @@ flyway:
     repository: acrhikutestplc.azurecr.io/activity-service-migrator
     tag: latest
     pullPolicy: Always
+
+jwtAuth:
+  issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
+  jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
