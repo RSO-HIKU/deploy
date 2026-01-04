@@ -1,0 +1,55 @@
+# values-dev.yaml
+edge:
+  ingress:
+    enabled: true
+
+    # Matches your current dev ingress name
+    name: hiku-ingress
+
+    # Your current ingress has no host rule, so keep host unset/empty.
+    # (Template should omit "host:" and TLS if this is empty.)
+    host: ""
+
+    # Matches your current annotations
+    entrypoints:
+      - web
+      - websecure
+
+    middlewares:
+      - dev-cors@kubernetescrd
+
+    # Dev: keep TLS disabled (your current dev ingress has no tls block)
+    tls:
+      enabled: false
+      secretName: ""
+      clusterIssuer: ""
+
+    # Matches your current path -> service -> port map
+    routes:
+      - path: /api/user
+        serviceName: user-service
+        servicePort: 8083
+      - path: /api/activities
+        serviceName: activity-service
+        servicePort: 8085
+      - path: /api/weather
+        serviceName: weather-service
+        servicePort: 8086
+      - path: /api/badges
+        serviceName: badge-service
+        servicePort: 8087
+      - path: /api/notifications
+        serviceName: notification-service
+        servicePort: 8088
+      - path: /api/scoreboards-challenges
+        serviceName: scoreboards-challenges-service
+        servicePort: 8089
+      - path: /api/feed
+        serviceName: social-feed-service
+        servicePort: 8091
+      - path: /api/trail-import
+        serviceName: trail-import-service
+        servicePort: 8084
+      - path: /api/peaks-hikes
+        serviceName: peaks-hikes-service
+        servicePort: 8082

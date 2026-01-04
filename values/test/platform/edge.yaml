@@ -1,0 +1,43 @@
+edge:
+  ingress:
+    enabled: true
+    name: hiku-ingress
+    host: "traefik-hiku-test-plc.polandcentral.cloudapp.azure.com"  # from Terraform output
+    entrypoints: ["web", "websecure"]
+
+    middlewares:
+      - "cors@kubernetescrd"   # your chart should prefix with release ns or allow full name
+
+    tls:
+      enabled: true
+      secretName: "hiku-tls"
+      clusterIssuer: "letsencrypt-staging"
+
+    routes:
+      - path: /api/user
+        serviceName: user-service
+        servicePort: 8083
+      - path: /api/activities
+        serviceName: activity-service
+        servicePort: 8085
+      - path: /api/weather
+        serviceName: weather-service
+        servicePort: 8086
+      - path: /api/badges
+        serviceName: badge-service
+        servicePort: 8087
+      - path: /api/notifications
+        serviceName: notification-service
+        servicePort: 8088
+      - path: /api/scoreboards-challenges
+        serviceName: scoreboards-challenges-service
+        servicePort: 8089
+      - path: /api/feed
+        serviceName: social-feed-service
+        servicePort: 8091
+      - path: /api/trail-import
+        serviceName: trail-import-service
+        servicePort: 8084
+      - path: /api/peaks-hikes
+        serviceName: peaks-hikes-service
+        servicePort: 8082
