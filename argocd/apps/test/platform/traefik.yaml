@@ -1,0 +1,23 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: traefik
+  namespace: argocd
+spec:
+  project: platform
+  source:
+    repoURL: https://github.com/RSO-HIKU/deploy.git
+    targetRevision: test
+    path: deploy/charts/platform/traefik
+    helm:
+      valueFiles:
+        - ../../../values/test/platform/traefik.yaml
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: traefik
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

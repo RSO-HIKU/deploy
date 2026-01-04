@@ -1,76 +1,35 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: hiku-ingress
-  namespace: dev
+  name: {{ .Values.edge.ingress.name }}
   annotations:
-    traefik.ingress.kubernetes.io/router.entrypoints: web,websecure
-    traefik.ingress.kubernetes.io/router.middlewares: dev-cors@kubernetescrd
+    traefik.ingress.kubernetes.io/router.entrypoints: {{ join "," .Values.edge.ingress.entrypoints | quote }}
+    {{- if .Values.edge.ingress.middlewares }}
+    traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.edge.ingress.middlewares | quote }}
+    {{- end }}
+    {{- if and .Values.edge.ingress.tls.enabled .Values.edge.ingress.tls.clusterIssuer }}
+    cert-manager.io/cluster-issuer: {{ .Values.edge.ingress.tls.clusterIssuer | quote }}
+    {{- end }}
 spec:
   ingressClassName: traefik
+  {{- if and .Values.edge.ingress.tls.enabled .Values.edge.ingress.host }}
+  tls:
+    - hosts:
+        - {{ .Values.edge.ingress.host | quote }}
+      secretName: {{ .Values.edge.ingress.tls.secretName | quote }}
+  {{- end }}
   rules:
-    - http:
+    - {{- if .Values.edge.ingress.host }}
+      host: {{ .Values.edge.ingress.host | quote }}
+      {{- end }}
+      http:
         paths:
-          - path: /api/user
+          {{- range .Values.edge.ingress.routes }}
+          - path: {{ .path }}
             pathType: Prefix
             backend:
               service:
-                name: user-service
+                name: {{ .serviceName }}
                 port:
-                  number: 8083
-          - path: /api/activities
-            pathType: Prefix
-            backend:
-              service:
-                name: activity-service
-                port:
-                  number: 8085
-          - path: /api/weather
-            pathType: Prefix
-            backend:
-              service:
-                name: weather-service
-                port:
-                  number: 8086
-          - path: /api/badges
-            pathType: Prefix
-            backend:
-              service:
-                name: badge-service
-                port:
-                  number: 8087
-          - path: /api/notifications
-            pathType: Prefix
-            backend:
-              service:
-                name: notification-service
-                port:
-                  number: 8088
-          - path: /api/scoreboards-challenges
-            pathType: Prefix
-            backend:
-              service:
-                name: scoreboards-challenges-service
-                port:
-                  number: 8089
-          - path: /api/feed
-            pathType: Prefix
-            backend:
-              service:
-                name: social-feed-service
-                port:
-                  number: 8091
-          - path: /api/trail-import
-            pathType: Prefix
-            backend:
-              service:
-                name: trail-import-service
-                port:
-                  number: 8084
-          - path: /api/peaks-hikes
-            pathType: Prefix
-            backend:
-              service:
-                name: peaks-hikes-service
-                port:
-                  number: 8082
+                  number: {{ .servicePort }}
+          {{- end }}
