@@ -1,0 +1,32 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: activity-service
+  namespace: argocd
+spec:
+  project: services
+  sources:
+    # 1) Helm chart from the service repo
+    - repoURL: https://github.com/RSO-HIKU/activity-service.git
+      targetRevision: main
+      path: helm
+      helm:
+        valueFiles:
+          # Pull values from the deploy repo (ref 'values' below)
+          - $values/values/prod/services/activity-service.yaml
+
+    # 2) Values repo (deploy repo)
+    - repoURL: https://github.com/RSO-HIKU/deploy.git
+      targetRevision: prod
+      ref: values
+
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: services
+
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

@@ -1,20 +1,23 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-test
+  name: rabbitmq
   namespace: argocd
 spec:
   project: platform
   source:
     repoURL: https://github.com/RSO-HIKU/deploy.git
-    targetRevision: test
-    path: argocd/apps/test
-    directory:
-      recurse: true
+    targetRevision: prod
+    path: charts/platform/rabbitmq
+    helm:
+      valueFiles:
+        - ../../../values/prod/platform/rabbitmq.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: rabbitmq
   syncPolicy:
     automated:
       prune: true
       selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

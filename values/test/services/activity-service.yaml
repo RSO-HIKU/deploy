@@ -2,8 +2,8 @@ replicaCount: 1
 
 image:
   repository: acrhikutestplc.azurecr.io/activity-service
-  tag: latest
-  pullPolicy: Always
+  tag: sha-PLACEHOLDER
+  pullPolicy: IfNotPresent
 
 database:
   enabled: false
@@ -27,8 +27,8 @@ service:
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/activity-service-migrator
-    tag: latest
-    pullPolicy: Always
+    tag: sha-PLACEHOLDER
+    pullPolicy: IfNotPresent
 
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"

@@ -1,19 +1,19 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: root-test
+  name: cert-manager-config
   namespace: argocd
 spec:
   project: platform
   source:
     repoURL: https://github.com/RSO-HIKU/deploy.git
-    targetRevision: test
-    path: argocd/apps/test
+    targetRevision: prod
+    path: deploy/manifests/prod/cert-manager
     directory:
       recurse: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: argocd
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
