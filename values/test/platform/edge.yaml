@@ -8,25 +8,24 @@ edge:
     middlewares:
       - cors
 
-    edge:
-      cors:
-        enabled: true
-        name: cors
+    cors:
+      enabled: true
+      name: cors
 
-        # We're using bearer tokens
-        allowCredentials: false
+      # We're using bearer tokens
+      allowCredentials: false
 
-        allowOrigins:
-          - "https://<TEST_FRONTEND_HOST>"
+      allowOrigins:
+        - "https://<TEST_FRONTEND_HOST>"
 
-        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 
-        allowHeaders:
-          - "Authorization"
-          - "Content-Type"
-          - "Accept"
-          - "Origin"
-          - "X-Requested-With"
+      allowHeaders:
+        - "Authorization"
+        - "Content-Type"
+        - "Accept"
+        - "Origin"
+        - "X-Requested-With"
 
     tls:
       enabled: true
