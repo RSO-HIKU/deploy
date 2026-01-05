@@ -1,0 +1,28 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: services
+  namespace: argocd
+spec:
+  description: Services workloads
+  sourceRepos:
+    - https://github.com/RSO-HIKU/deploy.git
+    - https://github.com/RSO-HIKU/activity-service.git
+    - https://github.com/RSO-HIKU/badge-service.git
+    - https://github.com/RSO-HIKU/notification.git
+    - https://github.com/RSO-HIKU/peaks-hikes-service.git
+    - https://github.com/RSO-HIKU/scoreboards-challenges-service.git
+    - https://github.com/RSO-HIKU/social-feed-service.git
+    - https://github.com/RSO-HIKU/trail-import-service.git
+    - https://github.com/RSO-HIKU/user-service.git
+    - https://github.com/RSO-HIKU/weather-service.git
+
+  destinations:
+    - namespace: services
+      server: https://kubernetes.default.svc
+  clusterResourceWhitelist:
+    - group: ""
+      kind: Namespace
+  namespaceResourceWhitelist:
+    - group: "*"
+      kind: "*"

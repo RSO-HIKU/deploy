@@ -2,8 +2,8 @@ replicaCount: 1
 
 image:
   repository: acrhikuprodplc.azurecr.io/activity-service
-  tag: latest
-  pullPolicy: Always
+  tag: sha-PLACEHOLDER
+  pullPolicy: IfNotPresent
 
 database:
   enabled: false
@@ -27,8 +27,8 @@ service:
 flyway:
   image:
     repository: acrhikuprodplc.azurecr.io/activity-service-migrator
-    tag: latest
-    pullPolicy: Always
+    tag: sha-PLACEHOLDER
+    pullPolicy: IfNotPresent
 
 resources:
   limits:

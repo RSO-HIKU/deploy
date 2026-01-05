@@ -1,20 +1,21 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: traefik
+  name: cert-manager
   namespace: argocd
 spec:
   project: platform
   source:
-    repoURL: https://github.com/RSO-HIKU/deploy.git
-    targetRevision: test
-    path: charts/platform/traefik
+    repoURL: https://charts.jetstack.io
+    chart: cert-manager
+    targetRevision: v1.19.2
     helm:
-      valueFiles:
-        - ../../../values/test/platform/traefik.yaml
+      values: |
+        crds:
+          enabled: true
   destination:
     server: https://kubernetes.default.svc
-    namespace: traefik
+    namespace: cert-manager
   syncPolicy:
     automated:
       prune: true
