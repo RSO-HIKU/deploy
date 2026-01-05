@@ -1,7 +1,7 @@
 apiVersion: argoproj.io/v1alpha1
 kind: Application
 metadata:
-  name: activity-service
+  name: weather-service
   namespace: argocd
   annotations:
     argocd.argoproj.io/sync-wave: "3"
@@ -9,17 +9,17 @@ spec:
   project: services
   sources:
     # 1) Helm chart from the service repo
-    - repoURL: https://github.com/RSO-HIKU/activity-service.git
-      targetRevision: prod
+    - repoURL: https://github.com/RSO-HIKU/weather-service.git
+      targetRevision: test
       path: helm
       helm:
         valueFiles:
           # Pull values from the deploy repo (ref 'values' below)
-          - $values/values/prod/services/activity-service.yaml
+          - $values/values/test/services/weather-service.yaml
 
     # 2) Values repo (deploy repo)
     - repoURL: https://github.com/RSO-HIKU/deploy.git
-      targetRevision: prod
+      targetRevision: test
       ref: values
 
   destination:
