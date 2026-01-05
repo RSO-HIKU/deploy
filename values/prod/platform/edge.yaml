@@ -6,7 +6,27 @@ edge:
     entrypoints: ["web", "websecure"]
 
     middlewares:
-      - "cors@kubernetescrd"   # your chart should prefix with release ns or allow full name
+      - cors
+
+    edge:
+      cors:
+        enabled: true
+        name: cors
+
+        # We're using bearer tokens
+        allowCredentials: false
+
+        allowOrigins:
+          - "https://<PROD_FRONTEND_HOST>"
+
+        allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+
+        allowHeaders:
+          - "Authorization"
+          - "Content-Type"
+          - "Accept"
+          - "Origin"
+          - "X-Requested-With"
 
     tls:
       enabled: true

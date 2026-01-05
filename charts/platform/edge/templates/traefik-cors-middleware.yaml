@@ -1,18 +1,26 @@
+{{- if .Values.edge.cors.enabled }}
 apiVersion: traefik.io/v1alpha1
 kind: Middleware
 metadata:
-  name: cors
-  namespace: dev
+  name: {{ .Values.edge.cors.name | default "cors" }}
+  namespace: {{ .Release.Namespace }}
 spec:
   headers:
+    addVaryHeader: true
+    accessControlAllowCredentials: {{ .Values.edge.cors.allowCredentials | default false }}
+
     accessControlAllowOriginList:
-      - "*"
+{{- range .Values.edge.cors.allowOrigins }}
+      - {{ . | quote }}
+{{- end }}
+
     accessControlAllowMethods:
-      - "GET"
-      - "POST"
-      - "OPTIONS"
-      - "PUT"
-      - "DELETE"
+{{- range .Values.edge.cors.allowMethods }}
+      - {{ . | quote }}
+{{- end }}
+
     accessControlAllowHeaders:
-      - "*"
-    accessControlAllowCredentials: true
+{{- range .Values.edge.cors.allowHeaders }}
+      - {{ . | quote }}
+{{- end }}
+{{- end }}

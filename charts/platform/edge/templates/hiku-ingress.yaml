@@ -5,7 +5,15 @@ metadata:
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: {{ join "," .Values.edge.ingress.entrypoints | quote }}
     {{- if .Values.edge.ingress.middlewares }}
-    traefik.ingress.kubernetes.io/router.middlewares: {{ join "," .Values.edge.ingress.middlewares | quote }}
+    {{- $mws := list -}}
+    {{- range .Values.edge.ingress.middlewares }}
+      {{- if contains "@kubernetescrd" . }}
+        {{- $mws = append $mws . -}}
+      {{- else }}
+        {{- $mws = append $mws (printf "%s-%s@kubernetescrd" $.Release.Namespace .) -}}
+      {{- end }}
+    {{- end }}
+    traefik.ingress.kubernetes.io/router.middlewares: {{ join "," $mws | quote }}
     {{- end }}
     {{- if and .Values.edge.ingress.tls.enabled .Values.edge.ingress.tls.clusterIssuer }}
     cert-manager.io/cluster-issuer: {{ .Values.edge.ingress.tls.clusterIssuer | quote }}
