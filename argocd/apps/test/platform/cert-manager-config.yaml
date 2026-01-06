@@ -10,7 +10,7 @@ spec:
   source:
     repoURL: https://github.com/RSO-HIKU/deploy.git
     targetRevision: test
-    path: deploy/manifests/test/cert-manager
+    path: manifests/test/cert-manager
     directory:
       recurse: true
   destination:

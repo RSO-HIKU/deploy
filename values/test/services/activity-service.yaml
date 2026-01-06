@@ -15,7 +15,7 @@ azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
   keyVaultName: "kv-hiku-test-plc"
-  kvCsiClientId: "" # From terraform output aks_kv_csi_client_id
+  kvCsiClientId: "11b7ea50-12b7-42f6-a9a2-3bfc90538e32" # From terraform output aks_kv_csi_client_id
   database: hikudb
   port: "5432"
   sslmode: require

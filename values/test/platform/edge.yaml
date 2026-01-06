@@ -16,7 +16,7 @@ edge:
       allowCredentials: false
 
       allowOrigins:
-        - "https://<TEST_FRONTEND_HOST>"
+        - "https://stwebhikutestplc.z36.web.core.windows.net"
 
       allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
 
