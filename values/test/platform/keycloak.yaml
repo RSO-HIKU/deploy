@@ -51,6 +51,7 @@ ingress:
   tlsSecretName: keycloak-tls
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: websecure
+    argocd.argoproj.io/sync-wave: "2"
 
 resources: {}
 
