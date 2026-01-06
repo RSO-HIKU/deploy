@@ -10,7 +10,7 @@ service:
   amqpPort: 5672
   managementPort: 15672
 
-nodePort:
+managementNodePort:
   enabled: false
 
 resources:
