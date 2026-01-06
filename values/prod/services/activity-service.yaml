@@ -1,5 +1,7 @@
 replicaCount: 1
 
+environment: prod
+
 image:
   repository: acrhikuprodplc.azurecr.io/activity-service
   tag: sha-PLACEHOLDER
@@ -21,6 +23,7 @@ azure:
 service:
   clusterIP:
     port: 8085
+    address: "0.0.0.0"
   nodePort:
     enabled: false
 

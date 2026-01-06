@@ -3,12 +3,14 @@ kind: Application
 metadata:
   name: activity-service
   namespace: argocd
+  annotations:
+    argocd.argoproj.io/sync-wave: "3"
 spec:
   project: services
   sources:
     # 1) Helm chart from the service repo
     - repoURL: https://github.com/RSO-HIKU/activity-service.git
-      targetRevision: main
+      targetRevision: prod
       path: helm
       helm:
         valueFiles:
