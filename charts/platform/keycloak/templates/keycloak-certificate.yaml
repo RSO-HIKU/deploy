@@ -1,0 +1,16 @@
+{{- if ne .Values.environment "dev" }}
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: keycloak-cert
+  namespace: keycloak
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  secretName: keycloak-tls
+  issuerRef:
+    name: letsencrypt-staging
+    kind: ClusterIssuer
+  dnsNames:
+    - traefik-hiku-test.polandcentral.cloudapp.azure.com
+{{- end }}
