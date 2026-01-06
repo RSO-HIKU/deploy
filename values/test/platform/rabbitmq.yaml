@@ -26,4 +26,4 @@ azure:
   enabled: true
   keyVaultName: "kv-hiku-test-plc"
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
-  kvCsiClientId: ""     # From Terraform output
+  kvCsiClientId: "11b7ea50-12b7-42f6-a9a2-3bfc90538e32"     # From Terraform output

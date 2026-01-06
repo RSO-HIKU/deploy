@@ -5,7 +5,7 @@ traefik:
       service.beta.kubernetes.io/azure-pip-name: "pip-traefik-hiku-test-plc"
       service.beta.kubernetes.io/azure-load-balancer-resource-group: "MC_rg-hiku-test-plc_aks-hiku-test-plc_polandcentral"
     spec:
-      loadBalancerIP: ""  # Set from Terraform output: traefik_public_ip
+      loadBalancerIP: "74.248.154.93"  # Set from Terraform output: traefik_public_ip
 
   additionalArguments:
     - "--api.insecure=false"
