@@ -10,7 +10,7 @@ service:
   amqpPort: 5672
   managementPort: 15672
 
-nodePort:
+managementNodePort:
   enabled: false
 
 resources:
@@ -21,7 +21,6 @@ resources:
     cpu: "500m"
     memory: "512Mi"
 
-# Credentials from Key Vault
 azure:
   enabled: true
   keyVaultName: "kv-hiku-test-plc"
