@@ -14,6 +14,15 @@ spec:
       labels:
         {{- include "rabbitmq.selectorLabels" . | nindent 8 }}
     spec:
+      {{- if .Values.azure.enabled }}
+      volumes:
+        - name: secrets-store
+          csi:
+            driver: secrets-store.csi.k8s.io
+            readOnly: true
+            volumeAttributes:
+              secretProviderClass: {{ include "rabbitmq.fullname" . }}-azure-kv
+      {{- end }}
       containers:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
@@ -25,10 +34,31 @@ spec:
             - name: management
               containerPort: 15672
           {{- end }}
+          {{- if .Values.azure.enabled }}
+          volumeMounts:
+            - name: secrets-store
+              mountPath: /mnt/secrets-store
+              readOnly: true
+
+          command:
+            - sh
+            - -c
+            - |
+              set -euo pipefail
+
+              RABBITMQ_DEFAULT_USER="$(cat /mnt/secrets-store/rabbitmq-default-user)"
+              RABBITMQ_DEFAULT_PASS="$(cat /mnt/secrets-store/rabbitmq-default-pass)"
+
+              export RABBITMQ_DEFAULT_USER
+              export RABBITMQ_DEFAULT_PASS
+
+              exec /docker-entrypoint.sh rabbitmq-server
+          {{- else }}
           env:
             - name: RABBITMQ_DEFAULT_USER
               value: {{ .Values.auth.username | quote }}
             - name: RABBITMQ_DEFAULT_PASS
               value: {{ .Values.auth.password | quote }}
+          {{- end }}
           resources:
             {{- toYaml .Values.resources | nindent 12 }}
