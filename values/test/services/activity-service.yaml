@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/activity-service
-  tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+  tag: sha-a975a997b4eda7c9d9c447e65847ac1bd6e45095
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -15,10 +15,8 @@ azure:
   database: hikudb
   port: "5432"
   sslmode: require
-
 gitops:
   enabled: true
-
 service:
   clusterIP:
     port: 8085
@@ -28,7 +26,7 @@ service:
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/activity-service-migrator
-    tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+    tag: sha-a975a997b4eda7c9d9c447e65847ac1bd6e45095
     pullPolicy: IfNotPresent
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
