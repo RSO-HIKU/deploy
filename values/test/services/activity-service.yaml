@@ -1,16 +1,12 @@
 replicaCount: 1
-
 environment: test
-
 image:
   repository: acrhikutestplc.azurecr.io/activity-service
-  tag: sha-PLACEHOLDER
+  tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
   pullPolicy: IfNotPresent
-
 database:
   enabled: false
   schema: activity_service
-
 azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
@@ -29,13 +25,11 @@ service:
     address: "0.0.0.0"
   nodePort:
     enabled: false
-
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/activity-service-migrator
-    tag: sha-PLACEHOLDER
+    tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
     pullPolicy: IfNotPresent
-
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
