@@ -1,10 +1,8 @@
-environment: test
-
 edge:
   ingress:
     enabled: true
     name: hiku-ingress
-    host: "traefik-hiku-test-plc.polandcentral.cloudapp.azure.com"  # from Terraform output
+    host: "traefik-hiku-test.polandcentral.cloudapp.azure.com"  # from Terraform output
     entrypoints: ["web", "websecure"]
 
     middlewares:

@@ -1,5 +1,3 @@
-environment: prod
-
 edge:
   ingress:
     enabled: true
