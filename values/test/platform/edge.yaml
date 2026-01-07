@@ -1,3 +1,5 @@
+environment: test
+
 edge:
   ingress:
     enabled: true
