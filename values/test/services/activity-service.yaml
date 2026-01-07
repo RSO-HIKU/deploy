@@ -15,6 +15,10 @@ azure:
   database: hikudb
   port: "5432"
   sslmode: require
+
+gitops:
+  enabled: true
+
 service:
   clusterIP:
     port: 8085
