@@ -1,4 +1,6 @@
 # values-dev.yaml
+environment: dev
+
 edge:
   ingress:
     enabled: true
