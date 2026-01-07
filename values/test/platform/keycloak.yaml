@@ -25,6 +25,7 @@ azure:
     dbName: keycloak-db-name
     dbUser: keycloak-db-username
     dbPassword: keycloak-db-password
+    dbSchema: keycloak-db-schema
     adminUser: keycloak-admin-username
     adminPassword: keycloak-admin-password
 
