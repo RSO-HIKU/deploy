@@ -18,6 +18,8 @@ azure:
   port: 5432
   sslmode: require
 
+  schema: keycloak
+
   files:
     dbHost: keycloak-db-host
     dbName: keycloak-db-name

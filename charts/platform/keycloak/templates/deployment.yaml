@@ -56,6 +56,7 @@ spec:
               KC_DB_NAME="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbName }})"
               KC_DB_USER="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbUser }})"
               KC_DB_PASS="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbPassword }})"
+              KC_DB_SCHEMA="$(cat /mnt/secrets-store/{{ .Values.azure.files.dbSchema }})"
 
               export KC_BOOTSTRAP_ADMIN_USERNAME="${KC_ADMIN_USER}"
               export KC_BOOTSTRAP_ADMIN_PASSWORD="${KC_ADMIN_PASS}"
@@ -63,7 +64,7 @@ spec:
               export KC_DB="postgres"
               export KC_DB_USERNAME="${KC_DB_USER}"
               export KC_DB_PASSWORD="${KC_DB_PASS}"
-              export KC_DB_URL="jdbc:postgresql://${KC_DB_HOST}:{{ .Values.azure.port }}/${KC_DB_NAME}?sslmode={{ .Values.azure.sslmode }}"
+              export KC_DB_URL="jdbc:postgresql://${KC_DB_HOST}:{{ .Values.azure.port }}/${KC_DB_NAME}?sslmode={{ .Values.azure.sslmode }}&options=-csearch_path%3D${KC_DB_SCHEMA}"
 
               # Reverse proxy / hostname correctness behind Traefik
               export KC_HTTP_ENABLED="{{ .Values.keycloak.httpEnabled }}"
