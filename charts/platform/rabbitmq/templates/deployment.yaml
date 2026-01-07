@@ -21,8 +21,10 @@ spec:
           ports:
             - name: amqp
               containerPort: 5672
+          {{- if .Values.service.managementPort }}
             - name: management
               containerPort: 15672
+          {{- end }}
           env:
             - name: RABBITMQ_DEFAULT_USER
               value: {{ .Values.auth.username | quote }}

@@ -16,7 +16,7 @@ spec:
         - ../../../values/test/platform/edge.yaml
   destination:
     server: https://kubernetes.default.svc
-    namespace: test
+    namespace: services
   syncPolicy:
     automated:
       prune: true
