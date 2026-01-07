@@ -4,9 +4,6 @@ metadata:
   name: {{ .Values.edge.ingress.name }}
   annotations:
     traefik.ingress.kubernetes.io/router.entrypoints: {{ join "," .Values.edge.ingress.entrypoints | quote }}
-    {{- if ne .Values.environment "dev" }}
-    cert-manager.io/cluster-issuer: letsencrypt-staging
-    {{- end }}
     {{- if .Values.edge.ingress.middlewares }}
     {{- $mws := list -}}
     {{- range .Values.edge.ingress.middlewares }}
