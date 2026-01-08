@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/weather-service
-  tag: sha-1ac5d6d2d7fb494e0f7b14f85469e1a19154832c
+  tag: sha-efa0a878f11ac107ee3ae310bdba5d0894143682
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -23,10 +23,8 @@ service:
     address: "0.0.0.0"
   nodePort:
     enabled: false
-
 dbPool:
   poolMaxSize: 3
-
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/weather-service-migrator
