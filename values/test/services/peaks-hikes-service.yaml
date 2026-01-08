@@ -20,6 +20,7 @@ gitops:
 service:
   clusterIP:
     port: 8082
+    grpcPort: 9090
     address: "0.0.0.0"
   nodePort:
     enabled: false
