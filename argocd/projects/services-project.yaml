@@ -9,7 +9,7 @@ spec:
     - https://github.com/RSO-HIKU/deploy.git
     - https://github.com/RSO-HIKU/activity-service.git
     - https://github.com/RSO-HIKU/badge-service.git
-    - https://github.com/RSO-HIKU/notification.git
+    - https://github.com/RSO-HIKU/notification-service.git
     - https://github.com/RSO-HIKU/peaks-hikes-service.git
     - https://github.com/RSO-HIKU/scoreboards-challenges-service.git
     - https://github.com/RSO-HIKU/social-feed-service.git
