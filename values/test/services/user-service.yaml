@@ -3,13 +3,13 @@ replicaCount: 1
 environment: test
 
 image:
-  repository: acrhikutestplc.azurecr.io/activity-service
-  tag: sha-18bbb7f835c11c1e36c621db2f9a529e533d8e5c
+  repository: acrhikutestplc.azurecr.io/user-service
+  tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
   pullPolicy: IfNotPresent
 
 database:
   enabled: false
-  schema: activity_service
+  schema: user_service
 
 azure:
   enabled: true
@@ -19,19 +19,21 @@ azure:
   database: hikudb
   port: "5432"
   sslmode: require
+
 gitops:
   enabled: true
+
 service:
   clusterIP:
-    port: 8085
+    port: 8083
     address: "0.0.0.0"
   nodePort:
     enabled: false
 
 flyway:
   image:
-    repository: acrhikutestplc.azurecr.io/activity-service-migrator
-    tag: sha-18bbb7f835c11c1e36c621db2f9a529e533d8e5c
+    repository: acrhikutestplc.azurecr.io/user-service-migrator
+    tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
     pullPolicy: IfNotPresent
 
 jwtAuth:
