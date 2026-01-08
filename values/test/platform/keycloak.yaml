@@ -46,6 +46,7 @@ keycloak:
   httpEnabled: "true"
   healthEnabled: "true"
   metricsEnabled: "true"
+  dbPoolMax: 5
 
 ingress:
   enabled: true

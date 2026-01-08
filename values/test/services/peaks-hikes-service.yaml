@@ -24,6 +24,10 @@ service:
     address: "0.0.0.0"
   nodePort:
     enabled: false
+
+dbPool:
+  poolMaxSize: 3
+
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/peaks-hikes-service-migrator

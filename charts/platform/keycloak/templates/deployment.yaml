@@ -77,6 +77,12 @@ spec:
               export KC_HEALTH_ENABLED="{{ .Values.keycloak.healthEnabled }}"
               export KC_METRICS_ENABLED="{{ .Values.keycloak.metricsEnabled }}"
 
+              # Limit DB pool sizing
+              export KC_DB_POOL_INITIAL_SIZE="0"
+              export KC_DB_POOL_MIN_SIZE="0"
+              export KC_DB_POOL_MAX_SIZE="{{ .Values.keycloak.dbPoolMax | default "5" }}"
+
+
               # Start Keycloak
               exec /opt/keycloak/bin/kc.sh start
           {{- else if eq .Values.mode "dev" }}
