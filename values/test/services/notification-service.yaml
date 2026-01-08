@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/notification-service
-  tag: sha-5888ed5f0831cb289ad3eb5511bd3b5eee68e64a
+  tag: sha-96a2e4536f2281824f3fd89fa2f27a512e8d99ae
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -23,14 +23,12 @@ service:
     address: "0.0.0.0"
   nodePort:
     enabled: false
-
 dbPool:
   poolMaxSize: 3
-
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/notification-service-migrator
-    tag: sha-5888ed5f0831cb289ad3eb5511bd3b5eee68e64a
+    tag: sha-96a2e4536f2281824f3fd89fa2f27a512e8d99ae
     pullPolicy: IfNotPresent
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
