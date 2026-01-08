@@ -1,16 +1,12 @@
 replicaCount: 1
-
 environment: test
-
 image:
   repository: acrhikutestplc.azurecr.io/trail-import-service
-  tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+  tag: sha-db0808a6e4bcf35eae3ae7c3382cd0da5775ac3e
   pullPolicy: IfNotPresent
-
 database:
   enabled: false
   schema: trail_import_service
-
 azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
@@ -19,23 +15,19 @@ azure:
   database: hikudb
   port: "5432"
   sslmode: require
-
 gitops:
   enabled: true
-
 service:
   clusterIP:
     port: 8084
     address: "0.0.0.0"
   nodePort:
     enabled: false
-
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/trail-import-service-migrator
     tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
     pullPolicy: IfNotPresent
-
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
