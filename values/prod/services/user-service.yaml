@@ -3,13 +3,13 @@ replicaCount: 1
 environment: prod
 
 image:
-  repository: acrhikuprodplc.azurecr.io/activity-service
+  repository: acrhikuprodplc.azurecr.io/user-service
   tag: sha-PLACEHOLDER
   pullPolicy: IfNotPresent
 
 database:
   enabled: false
-  schema: activity_service
+  schema: user_service
 
 azure:
   enabled: true
@@ -25,14 +25,14 @@ gitops:
 
 service:
   clusterIP:
-    port: 8085
+    port: 8083
     address: "0.0.0.0"
   nodePort:
     enabled: false
 
 flyway:
   image:
-    repository: acrhikuprodplc.azurecr.io/activity-service-migrator
+    repository: acrhikuprodplc.azurecr.io/user-service-migrator
     tag: sha-PLACEHOLDER
     pullPolicy: IfNotPresent
 
