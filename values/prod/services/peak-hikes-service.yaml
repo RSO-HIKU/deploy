@@ -1,0 +1,41 @@
+replicaCount: 1
+
+environment: prod
+
+image:
+  repository: acrhikuprodplc.azurecr.io/peaks-hikes-service
+  tag: sha-PLACEHOLDER
+  pullPolicy: IfNotPresent
+
+database:
+  enabled: false
+  schema: peaks_hikes_service
+
+azure:
+  enabled: true
+  tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
+  keyVaultName: "kv-hiku-prod-plc"
+  kvCsiClientId: "" # From terraform output aks_kv_csi_client_id
+  database: hikudb
+  port: "5432"
+  sslmode: require
+
+gitops:
+  enabled: true
+
+service:
+  clusterIP:
+    port: 8082
+    address: "0.0.0.0"
+  nodePort:
+    enabled: false
+
+flyway:
+  image:
+    repository: acrhikuprodplc.azurecr.io/peaks-hikes-service-migrator
+    tag: sha-PLACEHOLDER
+    pullPolicy: IfNotPresent
+
+jwtAuth:
+  issuer: "https://traefik-hiku-prod.polandcentral.cloudapp.azure.com/auth/realms/hiku-prod"
+  jwksUri: "https://traefik-hiku-prod.polandcentral.cloudapp.azure.com/auth/realms/hiku-prod/protocol/openid-connect/certs"
