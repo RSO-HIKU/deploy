@@ -1,16 +1,12 @@
 replicaCount: 1
-
 environment: test
-
 image:
   repository: acrhikutestplc.azurecr.io/peaks-hikes-service
-  tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+  tag: sha-6520f1f400551155a0a543fed23c2bb9caf66307
   pullPolicy: IfNotPresent
-
 database:
   enabled: false
   schema: peaks_hikes_service
-
 azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
@@ -19,10 +15,8 @@ azure:
   database: hikudb
   port: "5432"
   sslmode: require
-
 gitops:
   enabled: true
-
 service:
   clusterIP:
     port: 8082
@@ -37,9 +31,8 @@ dbPool:
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/peaks-hikes-service-migrator
-    tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+    tag: sha-6520f1f400551155a0a543fed23c2bb9caf66307
     pullPolicy: IfNotPresent
-
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
