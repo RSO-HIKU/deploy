@@ -1,16 +1,12 @@
 replicaCount: 1
-
 environment: test
-
 image:
   repository: acrhikutestplc.azurecr.io/user-service
-  tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+  tag: sha-44a02b51b1c988c55d52ec370f2cab3d2a07ca6f
   pullPolicy: IfNotPresent
-
 database:
   enabled: false
   schema: user_service
-
 azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
@@ -19,10 +15,8 @@ azure:
   database: hikudb
   port: "5432"
   sslmode: require
-
 gitops:
   enabled: true
-
 service:
   clusterIP:
     port: 8083
@@ -36,9 +30,8 @@ dbPool:
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/user-service-migrator
-    tag: sha-ef5dab10e70bc01488217f7adb08033d7ac6f841
+    tag: sha-44a02b51b1c988c55d52ec370f2cab3d2a07ca6f
     pullPolicy: IfNotPresent
-
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
