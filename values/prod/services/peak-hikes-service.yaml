@@ -23,6 +23,10 @@ azure:
 gitops:
   enabled: true
 
+dbPool:
+  poolMaxSize: 3
+
+
 service:
   clusterIP:
     port: 8082

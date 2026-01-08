@@ -30,6 +30,9 @@ service:
   nodePort:
     enabled: false
 
+dbPool:
+  poolMaxSize: 3
+
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/badge-service-migrator
