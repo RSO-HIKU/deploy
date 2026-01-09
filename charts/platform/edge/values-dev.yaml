@@ -18,10 +18,9 @@ edge:
     middlewares:
       - cors
 
-    edge:
-  cors:
-    enabled: true
-    name: cors
+    cors:
+      enabled: true
+      name: cors
 
     # We're using bearer tokens
     allowCredentials: false
