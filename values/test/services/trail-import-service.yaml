@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/trail-import-service
-  tag: sha-2ebb6183d3f0da1249740ac72eb95d591cc290e6
+  tag: sha-140bfe6cbb14aa08c8bebd8bac49b42b4e27adba
   pullPolicy: IfNotPresent
 database:
   enabled: false
