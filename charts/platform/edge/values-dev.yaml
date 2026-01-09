@@ -22,22 +22,21 @@ edge:
       enabled: true
       name: cors
 
-    # We're using bearer tokens
-    allowCredentials: false
+      # We're using bearer tokens
+      allowCredentials: false
 
-    allowOrigins:
-      - "http://localhost:8081"
-      - "http://127.0.0.1:8081"
+      allowOrigins:
+        - "http://localhost:8081"
+        - "http://127.0.0.1:8081"
 
-    allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      allowMethods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"]
 
-    allowHeaders:
-      - "Authorization"
-      - "Content-Type"
-      - "Accept"
-      - "Origin"
-      - "X-Requested-With"
-
+      allowHeaders:
+        - "Authorization"
+        - "Content-Type"
+        - "Accept"
+        - "Origin"
+        - "X-Requested-With"
 
     # Dev: keep TLS disabled (your current dev ingress has no tls block)
     tls:
