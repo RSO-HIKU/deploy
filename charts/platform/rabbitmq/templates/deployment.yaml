@@ -49,8 +49,12 @@ spec:
               export RABBITMQ_DEFAULT_PASS="$(cat /mnt/secrets-store/rabbitmq-default-pass)"
 
               exec docker-entrypoint.sh rabbitmq-server
-          {{- else }}
           env:
+            - name: RABBITMQ_HOST
+              value: {{ .Values.rabbitmq.host | quote }}
+            - name: RABBITMQ_PORT
+              value: "{{ .Values.rabbitmq.port }}"
+          {{- else }}
             - name: RABBITMQ_DEFAULT_USER
               value: {{ .Values.auth.username | quote }}
             - name: RABBITMQ_DEFAULT_PASS

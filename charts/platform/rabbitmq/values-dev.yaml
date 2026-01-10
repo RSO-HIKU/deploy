@@ -27,3 +27,7 @@ resources:
     memory: 512Mi
 azure:
   enabled: false
+
+rabbitmq:
+  host: rabbitmq.platform.svc.cluster.local
+  port: 5672
