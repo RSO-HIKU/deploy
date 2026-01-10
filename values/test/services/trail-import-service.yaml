@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/trail-import-service
-  tag: sha-140bfe6cbb14aa08c8bebd8bac49b42b4e27adba
+  tag: sha-bb54be21e95dac5307a9a3f0441fbb8d36eab4da
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -34,7 +34,6 @@ flyway:
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
-
 health:
   liveness:
     initialDelaySeconds: 30
