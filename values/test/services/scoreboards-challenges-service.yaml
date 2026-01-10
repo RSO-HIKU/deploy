@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/scoreboards-challenges-service
-  tag: sha-fd4ea1cbf4ae531d0da48ca3f8e2e3ddc7eafdd9
+  tag: sha-845bea7bc97ab5dfca6318b882975e7868f82b19
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -28,12 +28,11 @@ dbPool:
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/scoreboards-challenges-service-migrator
-    tag: sha-fd4ea1cbf4ae531d0da48ca3f8e2e3ddc7eafdd9
+    tag: sha-845bea7bc97ab5dfca6318b882975e7868f82b19
     pullPolicy: IfNotPresent
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
-
 health:
   liveness:
     initialDelaySeconds: 30
