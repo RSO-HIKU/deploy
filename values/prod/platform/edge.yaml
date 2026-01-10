@@ -18,7 +18,7 @@ edge:
       allowOrigins:
         - "https://<PROD_FRONTEND_HOST>"
 
-      allowMethods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"]
+      allowMethods: ["GET", "POST", "PATCH", "PUT", "DELETE", "OPTIONS"]
 
       allowHeaders:
         - "Authorization"
