@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/weather-service
-  tag: sha-512a14266e6cd1ace8216b04969c5c9037c06537
+  tag: sha-1b4154a163a9d10b256f225b32ccd432f8882793
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -34,7 +34,6 @@ flyway:
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test/protocol/openid-connect/certs"
-
 health:
   liveness:
     initialDelaySeconds: 30
