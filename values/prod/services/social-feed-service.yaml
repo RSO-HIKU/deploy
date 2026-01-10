@@ -45,7 +45,7 @@ jwtAuth:
   jwksUri: "http://keycloak.keycloak.svc.cluster.local:8080/auth/realms/hiku-prod/protocol/openid-connect/certs"
 
 rabbitmq:
-  host: rabbitmq.platform.svc.cluster.local
+  host: rabbitmq.rabbitmq.svc.cluster.local
   port: 5672
 
 health:

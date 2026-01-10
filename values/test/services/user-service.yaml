@@ -35,7 +35,7 @@ jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
   jwksUri: "http://keycloak.keycloak.svc.cluster.local:8080/auth/realms/hiku-test/protocol/openid-connect/certs"
 rabbitmq:
-  host: rabbitmq.platform.svc.cluster.local
+  host: rabbitmq.rabbitmq.svc.cluster.local
   port: 5672
 health:
   liveness:
