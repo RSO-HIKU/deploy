@@ -42,7 +42,7 @@ flyway:
 
 jwtAuth:
   issuer: "https://traefik-hiku-prod.polandcentral.cloudapp.azure.com/auth/realms/hiku-prod"
-  jwksUri: "https://traefik-hiku-prod.polandcentral.cloudapp.azure.com/auth/realms/hiku-prod/protocol/openid-connect/certs"
+  jwksUri: "http://keycloak.keycloak.svc.cluster.local:8080/auth/realms/hiku-prod/protocol/openid-connect/certs"
 
 health:
   liveness:
