@@ -6,7 +6,7 @@ image:
   pullPolicy: IfNotPresent
 database:
   enabled: false
-  schema: trail_import_service
+  schema: peaks_hikes_service
 azure:
   enabled: true
   tenantId: "a6cc90df-f580-49dc-903f-87af5a75338e"
