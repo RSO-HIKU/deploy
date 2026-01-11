@@ -9,6 +9,7 @@ The deployment repository contains Kubernetes, Helm and ArgoCD artifacts for dep
 - [Deploy - Technical Documentation](#deploy---technical-documentation)
   - [Overview](#overview)
   - [Table of Contents](#table-of-contents)
+  - [Folder Structure](#folder-structure)
   - [Platform Components](#platform-components)
   - [Deployment](#deployment)
     - [Local Development](#local-development)
@@ -21,6 +22,23 @@ The deployment repository contains Kubernetes, Helm and ArgoCD artifacts for dep
 
 
 ---
+
+## Folder Structure
+- argocd/  
+  ArgoCD application definitions and bootstrap manifests.
+  - apps/ — App-of-Apps application YAMLs split by environment.
+  - projects/ — ArgoCD Project manifests.
+  - root/ — bootstrap/root App manifests.
+
+- charts/  
+  Helm charts for platform components and subcharts.
+  - platform/ — charts for edge, keycloak, rabbitmq, traefik
+- docs/  
+  Deployment documentation
+- manifests/  
+  Cluster-level manifests (e.g., cert-manager ClusterIssuer) organized by environment.
+- values/  
+  Environment-specific Helm values used by charts/ and ArgoCD.
 
 ## Platform Components
 This repository is in charge of platform components required for the cluster to work properly. 
@@ -73,6 +91,7 @@ helm repo update
 
 helm install argocd argo/argo-cd -n argocd 
 
+# For the test environment
 kubectl apply -f test-root.yaml
 ```
 
