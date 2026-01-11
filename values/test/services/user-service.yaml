@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/user-service
-  tag: sha-bb6c2234799d3ba1579df00f8b2851d066603698
+  tag: sha-1a499f4e028c4abff62046ffe41749d6c867485e
   pullPolicy: IfNotPresent
 database:
   enabled: false
@@ -29,7 +29,7 @@ dbPool:
 flyway:
   image:
     repository: acrhikutestplc.azurecr.io/user-service-migrator
-    tag: sha-bb6c2234799d3ba1579df00f8b2851d066603698
+    tag: sha-1a499f4e028c4abff62046ffe41749d6c867485e
     pullPolicy: IfNotPresent
 jwtAuth:
   issuer: "https://traefik-hiku-test.polandcentral.cloudapp.azure.com/auth/realms/hiku-test"
