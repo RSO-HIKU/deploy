@@ -45,13 +45,18 @@ jwtAuth:
   jwksUri: "http://keycloak.keycloak.svc.cluster.local:8080/auth/realms/hiku-prod/protocol/openid-connect/certs"
 
 health:
+  startup:
+    initialDelaySeconds: 5
+    periodSeconds: 3
+    timeoutSeconds: 2
+    failureThreshold: 10
   liveness:
-    initialDelaySeconds: 30
+    initialDelaySeconds: 0
     periodSeconds: 10
-    timeoutSeconds: 5
+    timeoutSeconds: 3
     failureThreshold: 3
   readiness:
-    initialDelaySeconds: 10
+    initialDelaySeconds: 0
     periodSeconds: 5
     timeoutSeconds: 3
     failureThreshold: 3
