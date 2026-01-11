@@ -2,7 +2,7 @@ replicaCount: 1
 environment: test
 image:
   repository: acrhikutestplc.azurecr.io/weather-service
-  tag: sha-92dd523f5ac34746ac9e6b81f8aafade3ec7a9e2
+  tag: sha-e3d623aeb0601a504ef1ff36cffef1905857af79
   pullPolicy: IfNotPresent
 database:
   enabled: false
