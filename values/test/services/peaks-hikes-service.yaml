@@ -49,3 +49,6 @@ health:
     periodSeconds: 5
     timeoutSeconds: 3
     failureThreshold: 3
+
+grpc:
+  internal_endpoint: "http://peaks-hikes-service.test.svc.cluster.local:8082/getpeaks/"
